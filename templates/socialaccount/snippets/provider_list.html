@@ -1,0 +1,26 @@
+{% load static %}
+{% load allauth socialaccount %}
+{% get_providers as socialaccount_providers %}
+{% if socialaccount_providers %}
+    <ul class="socialaccount_provider_list">
+        {% for provider in socialaccount_providers %}
+            {% if provider.id == "openid" %}
+                {% for brand in provider.get_brands %}
+                    {% provider_login_url provider openid=brand.openid_url process=process as href %}
+                    <li class="socialaccount_provider {{ provider.id }}">
+                        <a href="{{ href }}">
+                            <img src="{% static 'social_icons/' %}{{ provider.id }}.png?v={{ STATIC_VERSION }}" alt="{{ brand.name }}">
+                        </a>
+                    </li>
+                {% endfor %}
+            {% else %}
+                {% provider_login_url provider process=process scope=scope auth_params=auth_params as href %}
+                <li class="socialaccount_provider {{ provider.id }}">
+                    <a href="{{ href }}">
+                        <img src="{% static 'social_icons/' %}{{ provider.id }}.png?v={{ STATIC_VERSION }}" alt="{{ provider.name }}">
+                    </a>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endif %}

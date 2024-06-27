@@ -1,0 +1,81 @@
+{% extends "socialaccount/base_entrance.html" %}
+{% load i18n %}
+{% load allauth %}
+{% block head_title %}
+    {% trans "Sign In" %}
+{% endblock head_title %}
+{% block content %}
+    <div>
+        <strong>{% trans "Menu:" %}</strong>
+        <ul>
+            {% if user.is_authenticated %}
+                {% url 'account_email' as email_url %}
+                {% if email_url %}
+                    <li>
+                        <a href="{{ email_url }}">{% trans "Change Email" %}</a>
+                    </li>
+                {% endif %}
+                {% url 'account_change_password' as change_password_url %}
+                {% if change_password_url %}
+                    <li>
+                        <a href="{{ change_password_url }}">{% trans "Change Password" %}</a>
+                    </li>
+                {% endif %}
+                {% url 'mfa_index' as mfa_url %}
+                {% if mfa_url %}
+                    <li>
+                        <a href="{{ mfa_url }}">{% trans "Two-Factor Authentication" %}</a>
+                    </li>
+                {% endif %}
+                {% url 'usersessions_list' as usersessions_list_url %}
+                {% if usersessions_list_url %}
+                    <li>
+                        <a href="{{ usersessions_list_url }}">{% trans "Sessions" %}</a>
+                    </li>
+                {% endif %}
+                {% url 'account_logout' as logout_url %}
+                {% if logout_url %}
+                    <li>
+                        <a href="{{ logout_url }}">{% trans "Sign Out" %}</a>
+                    </li>
+                {% endif %}
+            {% else %}
+                {% url 'account_login' as login_url %}
+                {% if login_url %}
+                    <li>
+                        <a href="{{ login_url }}">{% trans "Sign In" %}</a>
+                    </li>
+                {% endif %}
+                {% url 'account_signup' as signup_url %}
+                {% if signup_url %}
+                    <li>
+                        <a href="{{ signup_url }}">{% trans "Sign Up" %}</a>
+                    </li>
+                {% endif %}
+            {% endif %}
+        </ul>
+    </div>
+    {% if process == "connect" %}
+        {% element h1 %}
+            {% blocktrans with provider.name as provider %}Connect {{ provider }}{% endblocktrans %}
+        {% endelement %}
+        {% element p %}
+            {% blocktrans with provider.name as provider %}You are about to connect a new third-party account from {{ provider }}.{% endblocktrans %}
+        {% endelement %}
+    {% else %}
+        {% element h1 %}
+            {% blocktrans with provider.name as provider %}Sign In Via {{ provider }}{% endblocktrans %}
+        {% endelement %}
+        {% element p %}
+            {% blocktrans with provider.name as provider %}You are about to sign in using a third-party account from {{ provider }}.{% endblocktrans %}
+        {% endelement %}
+    {% endif %}
+    {% element form method="post" no_visible_fields=True %}
+        {% slot actions %}
+            {% csrf_token %}
+            {% element button type="submit" %}
+                {% trans "Continue" %}
+            {% endelement %}
+        {% endslot %}
+    {% endelement %}
+{% endblock content %}

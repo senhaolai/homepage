@@ -1,0 +1,46 @@
+{% extends "account/base_entrance.html" %}
+{% load i18n %}
+{% load allauth account %}
+{% block head_title %}
+    {% trans "Sign In" %}
+{% endblock head_title %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h1 class="text-center">{% trans "潔博士登入" %}</h1>  
+    {% if not SOCIALACCOUNT_ONLY %}
+        {% setvar link %}
+            <a href="{{ signup_url }}">
+            {% endsetvar %}
+            {% setvar end_link %}
+            </a>
+            {% endsetvar %}
+        <p class="text-center">
+                {% blocktranslate %}If you have not created an account yet, then please {{ link }}sign up{{ end_link }} first.{% endblocktranslate %}
+        </p>
+		{% if SOCIALACCOUNT_ENABLED %}
+			{% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+		{% endif %}
+        {% url 'account_login' as login_url %}
+        <form method="post" action="{{ login_url }}" class="mt-4">
+                {% csrf_token %}
+                <div class="form-group">
+                    {% element fields form=form unlabeled=True %}
+					{% endelement %}
+                </div>
+                {{ redirect_field }}
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary btn-block">{% trans "Sign In" %}</button>
+                </div>
+            </form>
+    {% endif %}
+    {% if LOGIN_BY_CODE_ENABLED %}
+        <hr>
+            <h2 class="text-center">
+                <a href="{{ request_login_code_url }}" class="btn btn-secondary btn-block mt-3">{% trans "Mail me a sign-in code" %}</a>
+            </h2>
+    {% endif %}
+    
+	    </div>
+</div>
+{% endblock content %}

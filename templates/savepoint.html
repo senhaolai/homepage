@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>儲值點數</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .form-group input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-group input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .form-group input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        {% include "header.html" %}
+        <h2>儲值點數</h2>
+        
+        {% if user.is_authenticated %}
+            <form method="post" action="{% url 'savepointapi' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="savepoints">請輸入儲值點數：</label>
+                    <input type="number" id="savepoints" name="savepoints" min="1" required>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="確定儲值">
+                </div>
+            </form>
+        {% else %}
+            <p>請先<a href="{% url 'account_login' %}">登入</a>後再進行點數儲值。</p>
+        {% endif %}
+    
+    </div>
+
+</body>
+</html>

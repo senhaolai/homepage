@@ -1,0 +1,269 @@
+html
+複製程式碼
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Grid</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        const images = [
+            {
+                src: "c:/Project/Django/doctorj/doctorj_frontend/src/images/10.png",
+                title: "專注於洗衣科技的創新",
+                description: "Focus on innovation in laundry technology.",
+                link: "https://example.com/article1"
+            },
+            {
+                src: "c:/Project/Django/doctorj/doctorj_frontend/src/images/11.png",
+                title: "Title for Image 11",
+                description: "Description for Image 11.",
+                link: "https://example.com/article2"
+            },
+            {
+                src: "c:/Project/Django/doctorj/doctorj_frontend/src/images/12.png",
+                title: "Title for Image 12",
+                description: "Description for Image 12.",
+                link: "https://example.com/article3"
+            }
+        ];
+
+        let currentIndex = 0;
+
+        function showImage(index) {
+            const imageElement = document.getElementById('carousel-image');
+            const titleElement = document.getElementById('carousel-title');
+            const descriptionElement = document.getElementById('carousel-description');
+            const linkElement = document.getElementById('carousel-link');
+
+            imageElement.src = images[index].src;
+            titleElement.textContent = images[index].title;
+            descriptionElement.textContent = images[index].description;
+            linkElement.href = images[index].link;
+
+            currentIndex = index;
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex === 0) ? images.length - 1 : currentIndex - 1;
+            showImage(currentIndex);
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex === images.length - 1) ? 0 : currentIndex + 1;
+            showImage(currentIndex);
+        }
+    </script>    
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+
+    .container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 20px;
+        max-width: 1200px;
+        margin: auto;
+        border-radius: 6px;
+    }
+
+    .main-article {
+        position: relative;
+        background-color: #000;
+        color: #fff;
+        overflow: hidden;
+        border-radius: 6px;
+    }
+
+    .main-article img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        transition: transform 0.6s ease;
+    }
+
+    .main-article:hover img {
+        transform: scale(1.05);
+    }
+
+    .main-article-content {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+        z-index: 1; /* 确保内容显示在控制按钮之上 */
+    }
+
+    .category {
+        display: inline-block;
+        padding: 5px 10px;
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 6px;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .lifestyle {
+        background-color: #ff4500;
+    }
+
+    .technology {
+        background-color: #ffa500;
+    }
+
+    .innovation {
+        background-color: #32cd32;
+    }
+
+    .accurate {
+        background-color: #1e90ff;
+    }
+
+    h2, h3 {
+        margin: 0 0 10px 0;
+        position: relative;
+        display: inline-block; /* 使 h2 和 h3 的宽度与内容匹配 */
+    }
+
+    h2::after, h3::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        display: block; 
+        margin-top: 5px;
+        left: 0;
+        background: currentColor;
+        transition: width 0.6s;
+        -webkit-transition: width 0.6s;
+        text-align: left; /* 确保伪元素对齐到左侧 */
+    }
+
+    h2:hover::after, h3:hover::after {
+        width: 100%; 
+    }
+
+    p {
+        margin: 0 0 20px 0;
+    }
+
+    .article-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+    }
+
+    .article {
+        position: relative;
+        background-color: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .article img {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: transform 0.6s ease;
+    }
+
+    .article:hover img {
+        transform: scale(1.05);
+    }
+
+    .article h3 {
+        padding: 10px 20px;
+    }
+/* 
+    .carousel-controls {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        transform: translateY(-50%);
+    } */
+
+    .carousel-controls {
+        position: absolute;
+        top: 50%;
+        bottom: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        transform: translateY(-50%);
+        align-items: center;
+        z-index: 2; /* 确保控制按钮在图片和链接上方 */
+    }
+
+    .carousel-link-wrapper {
+        position: relative;
+        z-index: 3; /* 确保链接在控制按钮上方 */
+    }
+
+    .carousel-controls button {
+        background-color: rgba(0, 0, 0, 0.1);
+        border: none;
+        color: rgba(255, 255, 255, 0.4); /* Set font color with transparency */
+        font-size: 40px;
+        width: 70px; /* Set a fixed width for the buttons */
+        height: 100%; /* Make the button height match the container height */
+        cursor: pointer;
+        display: flex;
+        align-items: center; /* Center the content vertically */
+        justify-content: center; /* Center the content horizontally */
+    }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="main-article">
+            <div class="carousel-link-wrapper">
+                <a id="carousel-link" href="https://example.com/article1" target="_blank">
+                    <img id="carousel-image" src="c:/Project/Django/doctorj/doctorj_frontend/src/images/10.png" alt="Main Article Image">
+                </a>
+            </div>
+            <div class="main-article-content">
+                <span class="category innovation">Innovation</span>
+                <h2 id="carousel-title">專注於洗衣科技的創新</h2>
+                <p id="carousel-description">Focus on innovation in laundry technology.</p>
+            </div>
+            <div class="carousel-controls">
+                <button onclick="prevImage()">&#10094;</button>
+                <button onclick="nextImage()">&#10095;</button>
+            </div>            
+        </div>
+        <div class="article-grid">
+            <div class="article">
+                <a href="https://example.com/article2" target="_blank">
+                    <img src="c:/Project/Django/doctorj/doctorj_frontend/src/images/1.png" alt="Article Image">
+                </a>
+                <span class="category technology">Technology</span>
+                <h3>產品種類 Product Category</h3>
+            </div>
+            <div class="article">
+                <a href="https://example.com/article3" target="_blank">
+                    <img src="c:/Project/Django/doctorj/doctorj_frontend/src/images/4.jpg" alt="Article Image">
+                </a>
+                <span class="category lifestyle">Lifestyle</span>
+                <h3>保持新球鞋 Keep new sneakers</h3>
+            </div>
+            <div class="article">
+                <a href="https://example.com/article3" target="_blank">
+                    <img src="c:/Project/Django/doctorj/doctorj_frontend/src/images/3.png" alt="Article Image">
+                </a>
+                <span class="category accurate">Accurate</span>
+                <h3>即時通知 Instant notification</h3>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            /* border-bottom: 3px solid #5b5be6;*/
+            /* box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.5); */
+        }
+        .header .welcome {
+            font-size: 16px;
+        }
+        .header .settings {
+            display: flex;
+            align-items: center;
+        }
+        .header .points {
+            margin-right: 10px;
+        }
+        .header .settings-button {
+            width: 24px;
+            height: 24px;
+            background-color: #ccc;
+            border: none;
+            cursor: pointer;
+            position: relative;
+        }
+        .header .settings-button:before,
+        .header .settings-button:after,
+        .header .settings-button div {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: #333;
+            position: absolute;
+        }
+        .header .settings-button:before {
+            top: 6px;
+        }
+        .header .settings-button:after {
+            bottom: 6px;
+        }
+        .header .settings-button div {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="welcome">
+        {% if user.is_authenticated %}
+            你好, {{ user.first_name }}!
+            <a href="{% url 'account_logout' %}">登出</a>
+        {% else %}
+            <a href="{% url 'account_login' %}">登入</a>
+            <a href="{% url 'account_signup' %}">註冊</a>
+        {% endif %}
+    </div>
+    <div class="settings">
+        <div class="points">剩餘點數: {{ points }} 點</div>
+        <button class="settings-button">
+            <div></div>
+        </button>
+    </div>
+</header>
+
+</body>
+</html>

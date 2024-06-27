@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LINE Form</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .background {
+            
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        
+
+        .left-column, .right-column {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(4, 4, 4, 0);
+            margin-top: 50px;
+        }
+
+        .left-column {
+            padding-right: 20px;
+        }
+
+        .right-column {
+            background: rgb(11, 11, 11, 0.4);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 16px; /* 調整文字大小 */
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            font-size: 16px; /* 調整文字大小 */
+        }
+
+        .form-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px; /* 調整間距 */
+        }
+
+        .form-group .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px; /* 調整間距 */
+        }
+
+        .form-group .checkbox-group label {
+            margin: 0;
+            font-size: 16px; /* 調整文字大小 */
+        }
+
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px; /* 調整文字大小 */
+        }
+
+        .form-group button:hover {
+            background-color: #45a049;
+        }
+
+        .left-column ul {
+            padding-left: 20px;
+        }
+
+        .left-column li {
+            margin-bottom: 10px;
+            font-size: 16px; /* 調整文字大小 */
+        }
+
+        .containerdown {
+            background-image: url("{% static './images/10.png'%}");
+            background-size: cover;
+            background-attachment: fixed;
+            padding: 20px;
+            color: aliceblue;
+            font-weight: bold;
+            border-radius: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            width: 100%;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .containerdown {
+                flex-direction: column;
+                margin-top: 280px; /* 手機尺寸時設定 */
+            }
+
+            .left-column, .right-column {
+                margin-top: 0px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background">
+        <div class="containerdown">
+            <div class="left-column">
+                <form>
+                    <div class="form-group">
+                        <label for="name">姓名：</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="company">公司名稱：</label>
+                        <input type="text" id="company" name="company" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="position">職稱：</label>
+                        <input type="text" id="position" name="position" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">聯絡電話：</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">電子郵件：</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inquiry">您想諮詢的項目為何？（可複選）：</label>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="notification" name="inquiry" value="notification">
+                            <label for="notification">了解客戶的喜好</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="crm" name="inquiry" value="crm">
+                            <label for="crm">讓客戶更了解公司文化</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="automation" name="inquiry" value="automation">
+                            <label for="automation">使用LINE 智慧型互動</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="aigc" name="inquiry" value="aigc">
+                            <label for="aigc">兌換點數機器問題</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="ec" name="inquiry" value="ec">
+                            <label for="ec">使用LINE PAY問題</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="others1" name="inquiry" value="others1">
+                            <label for="others1">智慧型物聯網洗衣</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="others2" name="inquiry" value="others2">
+                            <label for="others2">洗鞋、洗寵物機器問題</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">需求描述：</label>
+                        <textarea id="description" name="description" rows="4"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit">預約專人諮詢</button>
+                    </div>
+                </form>
+            </div>
+            <div class="right-column">
+                <h1>LINE 社群經濟學，讓客戶來了變主顧</h1>
+                <p>免費預約專人聯繫</p>
+                <ul>
+                    <li>讓加盟主了解客戶的喜好</li>
+                    <li>讓客戶了解公司的用心</li>
+                    <li>使用LINE 智慧型互動，讓大家都輕鬆方便</li>
+                    <li>兌換點數更EASY !!</li>
+                    <li>使用LINE PAY 也沒問題</li>
+                    <li>智慧型物聯網洗衣，一目了然</li>
+                    <li>洗鞋、洗寵物衣服一次搞定</li>
+                </ul>
+            </div>            
+        </div>
+    </div>
+</body>
+</html>

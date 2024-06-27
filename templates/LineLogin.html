@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Grid</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+
+    .container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 20px;
+        max-width: 1200px;
+        margin: auto;
+        border-radius: 6px;
+    }
+
+    .main-article {
+        position: relative;
+        background-color: #000;
+        color: #fff;
+        overflow: hidden;
+        border-radius: 6px;
+    }
+
+    .main-article img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        transition: transform 0.6s ease;
+        z-index: 1; /* 确保图片在最下层 */
+    }
+
+    .main-article:hover img {
+        transform: scale(1.05);
+    }
+
+    .main-article-content {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+        z-index: 2; /* 确保文字内容在图片之上 */
+    }
+
+    .category {
+        display: inline-block;
+        padding: 5px 10px;
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 6px;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .lifestyle {
+        background-color: #ff4500;
+    }
+
+    .technology {
+        background-color: #ffa500;
+    }
+
+    .innovation {
+        background-color: #32cd32;
+    }
+
+    .accurate {
+        background-color: #1e90ff;
+    }
+
+    h2, h3, p {
+        margin: 0 0 10px 0;
+        position: relative;
+        display: inline-block; /* 使 h2 和 h3 的宽度与内容匹配 */
+    }
+
+    h2::after, h3::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        display: block; 
+        margin-top: 5px;
+        left: 0;
+        background: currentColor;
+        transition: width 0.6s;
+        -webkit-transition: width 0.6s;
+        text-align: left; /* 确保伪元素对齐到左侧 */
+    }
+
+    h2:hover::after, h3:hover::after {
+        width: 100%; 
+    }
+
+    .article-grid {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap; /* 允许项目在必要时换行 */
+    }
+
+    .article {
+        position: relative;
+        background-color: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 300px; /* 固定宽度 */
+    }
+
+    .article img {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: transform 0.6s ease;
+    }
+
+    .article:hover img {
+        transform: scale(1.05);
+    }
+    
+    .article a {
+        display: block;
+        position: relative;
+        text-decoration: none;
+    }
+
+    .article .category {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 2;
+    }
+
+    .article h3 {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 4px;
+        z-index: 2; /* 确保标题在图片之上 */
+        margin: 0;
+    }
+
+    .carousel-controls {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        transform: translateY(-50%);
+        z-index: 3; /* 确保按钮在文字内容和图片之上 */
+        pointer-events: none;
+    }
+
+    .carousel-link-wrapper {
+        position: relative;
+        z-index: 2; /* 确保链接在图片之上 */
+    }
+
+    .carousel-controls button {
+        background-color: rgba(0, 0, 0, 0.4);
+        border: none;
+        color: rgba(255, 255, 255, 0.3);
+        font-size: 30px;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: all;
+    }
+
+    .carousel-controls button:hover {
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <div class="article-grid">
+ 
+            <div class="article">
+                <a href="https://example.com/article3" target="_blank">
+                    <img src="{% static 'images/login1.png'%}" alt="Article Image">
+                </a>
+            </div>
+            <div class="article">
+                <a href="https://example.com/article3" target="_blank">
+                    <img src="{% static 'images/login2.png'%}" alt="Article Image">
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            {% comment %} display: flex; {% endcomment %}
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f0f0f0;
+            margin: 0;
+        }
+        .login-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        .login-container img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: block;
+            margin: 0 auto 20px;
+        }
+        .login-container .social-login {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .login-container .social-login a img {
+            width: auto;
+            height: 40px;
+            cursor: pointer;
+        }
+        .login-container .separator {
+            margin: 20px 0;
+            border-bottom: 1px solid #ccc;
+        }
+        .login-container .input-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .login-container .input-container label {
+            position: absolute;
+            top: -10px;
+            left: 40px;
+            background: #fff;
+            padding: 0 5px;
+            color: #333;
+            font-size: 12px;
+        }
+        .login-container .input-container input {
+            width: calc(100% - 60px); /* 調整寬度以適應左側圖標和填充 */
+            padding: 10px 10px 10px 35px; /* 調整填充以適應左側圖標 */
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            box-sizing: border-box;
+        }
+        .login-container .input-container .icon {
+            position: absolute;
+            left: 42px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+        }
+        .login-container .error-message {
+            color: red;
+            font-size: 12px;
+            text-align: left;
+            margin-top: 5px;
+            padding-left: 35px;
+        }
+        .login-container .forgot-password {
+            display: block;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .login-container .forgot-password:hover {
+            text-decoration: underline;
+        }
+        .login-container button {
+            background-color: #4CAF50; /* 綠色背景 */
+            color: white; /* 白色字體 */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .login-container button:hover {
+            background-color: #45a049; /* 當懸停時稍微改變背景色 */
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <img src="images/DoctorLogo.png" alt="User Icon">
+        <div class="social-login">
+            <a href="YOUR_LINE_LOGIN_URL">
+                <img src="images/Line1.jpg" alt="Line Login">
+            </a>
+            <a href="YOUR_GOOGLE_LOGIN_URL">
+                <img src="images/google.png" alt="Google Login">
+            </a>
+        </div>
+        <div class="separator"></div>
+        <form method="post" action="/accounts/signup/" class="mt-4">
+			{% csrf_token %}
+            <div class="input-container">
+                <label for="id_username">姓名</label>
+                <img src="images/name05.png" alt="User Icon" class="icon">
+                <input type="text" name="username" placeholder="我的姓名" autocomplete="username" minlength="1" maxlength="150" required="" id="id_username">
+            </div>
+            <div class="input-container">
+                <label for="nickname">暱稱</label>
+                <img src="images/name1.png" alt="Nickname Icon" class="icon">
+                <input type="text" id="nickname" placeholder="我的暱稱">
+            </div>
+            <div class="input-container">
+                <label for="id_email">email</label>
+                <img src="images/email2.png" alt="Email Icon" class="icon">
+                <input type="email" name="email" placeholder="test@gmail.com" autocomplete="email" maxlength="320" id="id_email">
+            </div>
+            <div class="input-container">
+                <label for="id_password">密碼</label>
+                <img src="images/password4.png" alt="Password Icon" class="icon">
+                <input type="password" id="password" placeholder="••••••••" oninput="validatePassword()" autocomplete="current-password" required="" aria-describedby="id_password_helptext" id="id_password">
+            </div>
+            {% comment %} <span id="id_password_helptext" class="helptext"></span>
+            <a href="/accounts/password/reset/" class="forgot-password">忘記密碼？</a>
+			<p>
+				<label for="id_remember">記住我：</label>
+				<input type="checkbox" name="remember" id="id_remember">
+			</p> {% endcomment %}
+			
+			<div class="text-center">
+                    <button type="submit" class="btn btn-primary btn-block">確定註冊</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        function validatePassword() {
+            const passwordInput = document.getElementById('password');
+            const errorMessage = document.getElementById('error-message');
+            const password = passwordInput.value;
+            if (password.length < 8) {
+                errorMessage.textContent = '密碼太短（至少 8 個大小寫字母、數字）';
+            } else {
+                errorMessage.textContent = '';
+            }
+        }
+    </script>
+</body>
+</html>
